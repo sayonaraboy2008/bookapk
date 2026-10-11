@@ -13,7 +13,7 @@ import BookLoader from './components/BookLoader';
 import FooterModal from './components/FooterModal';
 import DownloadAppModal from './components/DownloadAppModal';
 import { translations } from './lib/translations';
-import { Bookmark, ArrowUpRight, ChevronDown, SlidersHorizontal, ChevronLeft, ChevronRight, Trophy, Smartphone, Download } from 'lucide-react';
+import { Bookmark, ArrowUpRight, ChevronDown, SlidersHorizontal, ChevronLeft, ChevronRight, Trophy, Smartphone, Download, Search } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from './lib/supabaseClient';
 
 const INITIAL_FOLIO_BOOKS = [
@@ -606,6 +606,23 @@ export default function App() {
             <ArrowUpRight size={18} className="external-arrow" />
           </div>
         </section>
+
+        {/* Mobile Dedicated Search Bar (Visible on mobile/tablet) */}
+        <div className="mobile-search-banner">
+          <Search size={16} className="mobile-search-icon" />
+          <input
+            type="text"
+            className="mobile-search-input"
+            placeholder={t?.searchPlaceholder || "Search books, authors, or topics..."}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button className="mobile-search-clear" onClick={() => setSearchQuery('')}>
+              ✕
+            </button>
+          )}
+        </div>
 
         {/* Filter Bar & Controls */}
         <section className="controls-bar">

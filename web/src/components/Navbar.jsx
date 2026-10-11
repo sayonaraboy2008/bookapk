@@ -227,21 +227,80 @@ export default function Navbar({
           )}
         </div>
 
-        {/* Mobile Hamburger Toggle Button */}
-        <button
-          className="mobile-hamburger-btn"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          title="Menyu"
-          aria-label="Menyu"
-        >
-          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Mobile Quick Action Buttons & Hamburger */}
+        <div className="mobile-header-actions" style={{ display: 'none', alignItems: 'center', gap: '6px' }}>
+          <button
+            className="btn-download-app-nav-compact"
+            onClick={onOpenDownloadApp}
+            title={lang === 'uz' ? "Mobil ilovani yuklab olish" : "Download Mobile App"}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '6px 10px',
+              borderRadius: '8px',
+              background: 'rgba(99, 102, 241, 0.15)',
+              border: '1px solid rgba(99, 102, 241, 0.3)',
+              color: '#818cf8',
+              fontSize: '11px',
+              fontWeight: '700',
+              cursor: 'pointer',
+            }}
+          >
+            <Smartphone size={14} />
+            <span>APK</span>
+          </button>
+
+          <button
+            className="mobile-hamburger-btn"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            title="Menyu"
+            aria-label="Menyu"
+          >
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
         <div className="mobile-nav-drawer">
           <div className="mobile-drawer-inner">
+            {/* Drawer Search Input */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'var(--bg-input)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '10px',
+                padding: '8px 12px',
+                marginBottom: '8px',
+              }}
+            >
+              <Search size={16} color="var(--text-muted)" />
+              <input
+                type="text"
+                placeholder={t?.searchPlaceholder || "Kitoblar, mualliflar..."}
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  if (currentView !== 'catalog' && onOpenExplore) {
+                    onOpenExplore();
+                  }
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-primary)',
+                  fontSize: '13px',
+                  width: '100%',
+                  outline: 'none',
+                }}
+              />
+            </div>
+
             {/* Nav links */}
             <button
               className={`mobile-drawer-item ${currentView === 'catalog' ? 'active' : ''}`}

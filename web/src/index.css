@@ -819,16 +819,65 @@ input {
   border-color: #4f46e5;
 }
 
-/* Mobile hamburger button */
-.mobile-hamburger-btn {
+/* Mobile Dedicated Search Banner */
+.mobile-search-banner {
   display: none;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  margin: 12px 0 20px 0;
+}
+
+.mobile-search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.mobile-search-input {
+  width: 100%;
+  padding: 12px 40px 12px 42px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s;
+}
+
+.mobile-search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.mobile-search-clear {
+  position: absolute;
+  right: 12px;
   background: none;
   border: none;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Mobile Quick Hamburger button */
+.mobile-hamburger-btn {
+  display: none;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 8px;
   cursor: pointer;
-  border-radius: 8px;
-  margin-left: 8px;
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
+.mobile-hamburger-btn:hover {
+  background: var(--bg-card);
 }
 
 /* Mobile Drawer Menu */
@@ -836,15 +885,31 @@ input {
   display: none;
 }
 
+/* =========================================================
+   PRO RESPONSIVE BREAKPOINTS (Desktop, Tablet, Mobile)
+   ========================================================= */
+
+/* 1. Large Laptops / Small Desktops (<= 1200px) */
 @media (max-width: 1200px) {
   .books-4col-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .folio-search-bar {
+    max-width: 380px;
+  }
+  .header-actions {
+    gap: 12px;
   }
 }
 
-@media (max-width: 992px) {
+/* 2. Tablets in Landscape & Smaller Laptops (<= 1024px) */
+@media (max-width: 1024px) {
   .desktop-nav-actions {
     display: none !important;
+  }
+  .mobile-header-actions {
+    display: flex !important;
   }
   .mobile-hamburger-btn {
     display: flex;
@@ -859,12 +924,15 @@ input {
     right: 0;
     background: var(--bg-card);
     border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
     z-index: 100;
-    animation: modalFadeIn 0.2s ease;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: modalFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .mobile-drawer-inner {
-    padding: 16px 20px;
+    padding: 16px 20px 24px 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -883,6 +951,10 @@ input {
     border: 1px solid var(--border-color);
     text-align: left;
     width: 100%;
+    transition: background-color 0.18s;
+  }
+  .mobile-drawer-item:hover {
+    background: var(--bg-card);
   }
   .mobile-drawer-item.active {
     background: #4f46e5;
@@ -899,72 +971,223 @@ input {
     align-items: center;
     justify-content: space-between;
     padding: 8px 4px;
-    margin-top: 4px;
+    margin-top: 6px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
   }
   .mobile-drawer-user {
-    padding-top: 8px;
+    padding-top: 10px;
     border-top: 1px solid var(--border-color);
   }
-  .folio-hero {
-    flex-direction: column;
-  }
   .books-4col-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
+/* 3. Tablets in Portrait & Phablets (<= 768px) */
 @media (max-width: 768px) {
+  .folio-container {
+    padding: 0 16px !important;
+  }
   .folio-header-inner {
     padding: 0 16px;
   }
   .folio-search-bar {
-    max-width: 220px;
+    display: none !important;
   }
-  .search-badges {
-    display: none;
+  .mobile-search-banner {
+    display: flex;
   }
   .folio-hero {
-    padding: 24px 0 32px 0;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 0 28px 0;
+  }
+  .hero-left {
+    max-width: 100%;
   }
   .hero-main-title {
-    font-size: 28px !important;
-    line-height: 1.25;
+    font-size: clamp(26px, 6vw, 36px) !important;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .hero-lead-text {
+    font-size: 14px !important;
+    line-height: 1.5;
+  }
+  .reading-list-card {
+    width: 100% !important;
+    min-width: 0 !important;
   }
   .controls-bar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 14px;
+    margin-bottom: 20px;
   }
   .category-pills {
     overflow-x: auto;
     flex-wrap: nowrap !important;
     padding-bottom: 6px;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     width: 100%;
+  }
+  .category-pills::-webkit-scrollbar {
+    display: none;
   }
   .cat-pill {
     flex-shrink: 0;
+    padding: 7px 14px;
+    font-size: 12px;
   }
   .controls-right {
     width: 100%;
     justify-content: space-between;
   }
+  .books-4col-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+  .folio-book-card {
+    padding: 12px !important;
+    border-radius: 14px !important;
+  }
+  .cover-display-frame {
+    height: 180px !important;
+    margin-bottom: 12px !important;
+  }
+  .realistic-book-mock {
+    width: 105px !important;
+    height: 150px !important;
+    padding: 10px 8px !important;
+  }
+  .card-book-title {
+    font-size: 14px !important;
+  }
+  .card-book-author {
+    font-size: 12px !important;
+    margin-bottom: 8px !important;
+  }
+  .card-meta-row {
+    font-size: 11px !important;
+    margin-bottom: 10px !important;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .mobile-app-showcase-banner {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 20px 16px !important;
+  }
+  .mobile-app-showcase-banner .btn-download-app-cta {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .folio-pagination-bar {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  .pagination-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+  .folio-footer-inner {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 14px !important;
+  }
+  .footer-links {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 14px !important;
+  }
 }
 
-@media (max-width: 520px) {
-  .folio-search-bar {
-    display: none !important;
+/* 4. Mobile Phones (<= 480px) */
+@media (max-width: 480px) {
+  .folio-container {
+    padding: 0 12px !important;
   }
   .books-4col-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 12px !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .folio-book-card {
+    padding: 10px !important;
+    border-radius: 12px !important;
+  }
+  .cover-display-frame {
+    height: 155px !important;
+    margin-bottom: 8px !important;
+  }
+  .realistic-book-mock {
+    width: 92px !important;
+    height: 132px !important;
+    padding: 8px 6px !important;
+  }
+  .realistic-book-mock h4,
+  .realistic-book-mock .mock-book-title {
+    font-size: 10px !important;
+    line-height: 1.15 !important;
+  }
+  .realistic-book-mock p,
+  .realistic-book-mock .mock-book-author {
+    font-size: 8px !important;
+  }
+  .card-genre-tag {
+    font-size: 9px !important;
+  }
+  .card-book-title {
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
+  .card-book-author {
+    font-size: 11px !important;
+    margin-bottom: 6px !important;
+  }
+  .card-meta-row {
+    font-size: 10px !important;
+    margin-bottom: 6px !important;
+  }
+  .card-actions-row {
+    gap: 6px !important;
+  }
+  .btn-read-now {
+    padding: 6px 6px !important;
+    font-size: 11px !important;
+  }
+  .btn-read-now span {
+    font-size: 11px !important;
+  }
+  .btn-download-icon {
+    width: 28px !important;
+    height: 28px !important;
   }
   .hero-main-title {
     font-size: 24px !important;
   }
-  .folio-pagination-bar {
-    flex-direction: column;
-    gap: 12px;
+  .page-btn {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* 5. Ultra-compact devices (<= 340px) */
+@media (max-width: 340px) {
+  .books-4col-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cover-display-frame {
+    height: 200px !important;
+  }
+  .realistic-book-mock {
+    width: 120px !important;
+    height: 170px !important;
   }
 }
 
